@@ -2,7 +2,6 @@ package com.example.bank.controller;
 
 import com.example.bank.model.dto.AccountResponse;
 import com.example.bank.model.dto.CreateAccountRequest;
-import com.example.bank.model.entity.Account;
 import com.example.bank.security.CustomUserDetails;
 import com.example.bank.service.AccountService;
 import jakarta.validation.Valid;

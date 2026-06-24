@@ -23,6 +23,7 @@ public class TransactionController {
             @AuthenticationPrincipal CustomUserDetails user) {
         transactionService.transfer(user.getId(), createTransferRequest);
 
+        // TODO status response
         return null;
     }
 }

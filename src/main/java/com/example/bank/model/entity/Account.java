@@ -1,5 +1,6 @@
 package com.example.bank.model.entity;
 
+import com.example.bank.enums.AccountStatus;
 import com.example.bank.enums.Currency;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -17,13 +18,12 @@ import java.time.Instant;
 @Table(name = "accounts")
 @NoArgsConstructor
 public class Account {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "account_number", unique = true, nullable = false)
-    private String accountNumber;
+    @Column(name = "iban", unique = true, nullable = false)
+    private String iban;
 
     @Column(precision = 19, scale = 2, nullable = false)
     private BigDecimal balance;
@@ -32,7 +32,8 @@ public class Account {
     @Column(nullable = false)
     private Currency currency;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -62,16 +62,19 @@ public class TransactionService {
     }
 
     /**
-     * @param fromId
-     * @param transferRequest
+     * Performs a transfer between two accounts by IBAN.
+     *
+     * @param fromId user id who owns source account
+     * @param transferRequest transferRequest contains from/to IBAN and amount
+     * @return transfer result with transaction status
      */
     @Transactional
     public TransferResponse transfer(
             Long fromId,
             CreateTransferRequest transferRequest
     ) {
-        Account from = accountRepository.findByAccountNumberAndUserId(transferRequest.fromCardNumber(), fromId).orElseThrow();
-        Account to   = accountRepository.findByAccountNumber(transferRequest.toCardNumber()).orElseThrow();
+        Account from = accountRepository.findByIbanAndUserId(transferRequest.fromIban(), fromId).orElseThrow();
+        Account to   = accountRepository.findByIban(transferRequest.toIban()).orElseThrow();
         BigDecimal amount = transferRequest.amount();
 
         transferValidator.validate(from, to, amount);

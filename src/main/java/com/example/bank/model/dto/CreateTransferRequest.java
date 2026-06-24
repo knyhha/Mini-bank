@@ -8,12 +8,10 @@ import java.math.BigDecimal;
 
 public record CreateTransferRequest(
         @NotBlank
-        @Pattern(regexp = "\\d{16}", message = "The card number must consist of 16 digits")
-        String fromCardNumber,
+        String fromIban,
 
         @NotBlank
-        @Pattern(regexp = "\\d{16}", message = "The card number must consist of 16 digits")
-        String toCardNumber,
+        String toIban,
 
         @NotBlank(message = "Amount is required")
         @Positive(message = "Transfer amount must be greater than zero")
