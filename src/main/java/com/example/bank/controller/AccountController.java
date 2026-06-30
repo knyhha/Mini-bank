@@ -2,7 +2,7 @@ package com.example.bank.controller;
 
 import com.example.bank.model.dto.AccountResponse;
 import com.example.bank.model.dto.CreateAccountRequest;
-import com.example.bank.security.CustomUserDetails;
+import com.example.bank.model.dto.SessionData;
 import com.example.bank.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,15 +21,15 @@ public class AccountController {
 
     @GetMapping
     public List<AccountResponse> all(
-            @AuthenticationPrincipal CustomUserDetails user
+            @AuthenticationPrincipal SessionData session
     ) {
-        return accountService.getAccountsByUserId(user.getId());
+        return accountService.getAccountsByUserId(session.id());
     }
 
     @PostMapping
     public ResponseEntity<AccountResponse> addAccount(
             @Valid @RequestBody CreateAccountRequest createAccountRequest,
-            @AuthenticationPrincipal CustomUserDetails user) {
-        return new ResponseEntity<>(accountService.createAccount(user.getId(), createAccountRequest), HttpStatus.CREATED);
+            @AuthenticationPrincipal SessionData session) {
+        return new ResponseEntity<>(accountService.createAccount(session.id(), createAccountRequest), HttpStatus.CREATED);
     }
 }
